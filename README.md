@@ -1,2 +1,2 @@
-# MNIST-MLP
-A basic backprop network written in Python/Numpy
+# numpy_mlp
+A basic backprop network written in Python/Numpy to classify handwritten digits. Trained on MNIST.
