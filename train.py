@@ -8,11 +8,8 @@ class Network(object):
         self.weights = [np.random.randn(x, y)
                         for x, y in zip(layersAndNodes[:-1], layersAndNodes[1:])]
 
-    def feedforward(self, input):
+    def train(self, x, y):
         for weights in self.weights:
-            input = sigmoid(np.dot(input, weights))
-        return input
+            x = sigmoid(np.dot(x, weights))
 
-    def grad_descent(self, x, y):
-        result = self.feedforward(x)
-        return result
+        d3 = x - y

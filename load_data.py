@@ -1,6 +1,6 @@
 from mnist import MNIST
 import numpy as np
-
+import sklearn.preprocessing
 def load_mnist():
     mndata = MNIST('./data')
     mndata.gz = True
@@ -12,14 +12,10 @@ def load_mnist():
     x_test = np.array(images)
     y_test = np.array(labels)
 
-    #x_train  = np.array([np.reshape(x, (784, 1)) for x in x_train])
-    y_train = np.array([vectorized_result(y) for y in y_train])
-    print(x_train.shape)
-    #x_test = np.array([np.reshape(x, (784, 1)) for x in x_test])
-    y_test = np.array([vectorized_result(y) for y in y_test])
-    return x_train, y_train, x_test, y_test
+    label_binarizer = sklearn.preprocessing.LabelBinarizer()
+    label_binarizer.fit(range(max(y_train)+1))
+    y_train = label_binarizer.transform(y_train)
+    label_binarizer.fit(range(max(y_test)+1))
+    y_test = label_binarizer.transform(y_test)
 
-def vectorized_result(j):
-    e = np.zeros((10, 1))
-    e[j] = 1
-    return e
+    return x_train, y_train, x_test, y_test
